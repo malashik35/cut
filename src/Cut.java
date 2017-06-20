@@ -22,12 +22,14 @@ public class Cut {
     }
 
 
-    private void reading(String ofile, String file) throws Exception {
+    private void reading(String ofile, String file) throws Exception { //ЧТЕНИЕ ФАЙЛА
         BufferedReader inputStream;
         BufferedWriter outputStream;
 
-        outputStream = ofile == "" ? new BufferedWriter(new OutputStreamWriter(System.out)) : new BufferedWriter(new PrintWriter(ofile));
-        inputStream = file == "" ? new BufferedReader(new InputStreamReader(System.in)) : new BufferedReader(new FileReader(file));
+        if (ofile == "") outputStream = new BufferedWriter(new OutputStreamWriter(System.out));
+        else outputStream = new BufferedWriter(new PrintWriter(ofile));
+        if (file == "") inputStream = new BufferedReader(new InputStreamReader(System.in));
+        else inputStream = new BufferedReader(new FileReader(file));
 
         StringBuilder builder = new StringBuilder();
         int data = inputStream.read();
@@ -62,10 +64,9 @@ public class Cut {
         }
     }
 
-    private String processLine(String line) {
-        return lineSplinning == 'w' ?
-                HandlingKt.forWord(start, end, line) :
-                HandlingKt.forChar(start, end, line);
+    private String processLine(String line) {   //делаем
+        if (lineSplinning == 'w') return HandlingKt.forWord(start, end, line);
+        else return HandlingKt.forChar(start, end, line);
     }
 
 
